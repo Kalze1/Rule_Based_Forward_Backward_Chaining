@@ -16,12 +16,12 @@
 
 !(bind! &rb (new-space))
 
-(= (tallest-rule-1)
+(= (tallest-rule)
     (-> (Evaluation taller_than $x $y)
         (Evaluation taller_than $y EveryoneElse)
         (Evaluation tallest $x)))
 
-!(add-reduct &rb (tallest-rule-1))
+!(add-reduct &rb (tallest-rule))
 
 
 ;;  Backward Chainer
@@ -42,4 +42,8 @@
 
 ;;  Running Test
 
-!(bc_bem (Evaluation tallest $who) (fromNumber 2))
+!(bc_bem (Evaluation tallest John) (fromNumber 2))
+
+;; This query cannot be resolved because there is no rule that supports deriving Kim as the tallest person.
+!(bc_bem (Evaluation tallest Kim) (fromNumber 2))
+

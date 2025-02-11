@@ -6,13 +6,13 @@
 
 !(bind! &kb (new-space))
 
-!(add-atom &kb (Evaluation car_wont_start Car))
-!(add-atom &kb (Evaluation fuel_tank_not_empty Car))
+!(add-atom &kb (Evaluation car_wont_start Car_1111))
+!(add-atom &kb (Evaluation fuel_tank_not_empty Car_1111))
 
 !(add-atom &kb (True))
 
 
-;;  Rule Base: Car Diagnosis
+;;  Rule Base
 
 !(bind! &rb (new-space))
 
@@ -47,4 +47,7 @@
 
 
 ;;  Running Test
-!(fc (Evaluation car_wont_start Car) (fromNumber 2))
+!(fc (Evaluation car_wont_start Car_1111) (fromNumber 2))
+
+;; No conclusion will be reached because there is no supporting evidence for Car_1112 in the knowledge base
+!(fc (Evaluation car_wont_start Car_1112) (fromNumber 2))

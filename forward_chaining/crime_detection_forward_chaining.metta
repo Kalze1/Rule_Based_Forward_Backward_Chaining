@@ -44,6 +44,7 @@
 !(add-reduct &rb (illegal-weapon-sale-rule))
 !(add-reduct &rb (enemy-has-weapons-rule))
 !(add-reduct &rb (crime-final-rule))
+!(add-reduct &rb (enemy-owns-dangerous-weapons-rule))
 
 
 

@@ -48,5 +48,4 @@
 
 ;;  Running Test
 
-;; Medical Diagnosis
 !(fc (Evaluation has_fever Alice) (fromNumber 2))

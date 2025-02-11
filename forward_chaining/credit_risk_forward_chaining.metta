@@ -6,29 +6,57 @@
 
 !(bind! &kb (new-space))
 
-!(add-atom &kb (Evaluation has_credit_score_above_750 John))
-!(add-atom &kb (Evaluation has_stable_income John))
-!(add-atom &kb (Evaluation meets_bank_criteria John))
+!(add-atom &kb (HasCreditScore Abebe above_750))
+!(add-atom &kb (HasStableIncome Abebe))
+!(add-atom &kb (HasLowDebt Abebe))
+!(add-atom &kb (OwnsAssets Abebe house))
+!(add-atom &kb (HasGoodRepaymentHistory Abebe))
+!(add-atom &kb (HasRequiredDocuments Abebe))
+
+!(add-atom &kb (HasStableIncome Hana))
+!(add-atom &kb (HasHighDebt Hana))
+!(add-atom &kb (OwnsAssets Hana none))
+!(add-atom &kb (HasLoanAmount Hana medium))
+!(add-atom &kb (HasLoanTerm Hana long))
+!(add-atom &kb (HasDebtToIncomeRatio Hana risky))
+!(add-atom &kb (HasRequiredDocuments Hana))
 
 !(add-atom &kb (True))
-
 
 ;;  Rule Base
 
 !(bind! &rb (new-space))
 
-(= (credit-score-rule)
-    (-> (Evaluation has_credit_score_above_750 $x)
-        (Evaluation has_stable_income $x)
-        (Evaluation loan_eligibility $x)))
+(= (loan-eligibility-rule)
+    (-> (HasCreditScore $x above_750)
+        (HasStableIncome $x)
+        (LoanEligible $x)))
 
-(= (loan-interest-rule)
-    (-> (Evaluation loan_eligibility $x)
-        (Evaluation meets_bank_criteria $x)
-        (Evaluation loan_interest_rate_10_percent $x)))
+(= (bank-criteria-rule)
+    (-> (LoanEligible $x)
+        (HasLowDebt $x)
+        (MeetsBankCriteria $x)))
 
-!(add-reduct &rb (credit-score-rule))
-!(add-reduct &rb (loan-interest-rule))
+(= (premium-loan-rule)
+    (-> (MeetsBankCriteria $x)
+        (HasGoodRepaymentHistory $x)
+        (MeetsPremiumBankCriteria $x)))
+
+(= (premium-loan-approval-rule)
+    (-> (MeetsPremiumBankCriteria $x)
+        (HasRequiredDocuments $x)
+        (PremiumLoanApproved $x)))
+
+(= (loan-approval-rule)
+    (-> (MeetsBankCriteria $x)
+        (HasRequiredDocuments $x)
+        (LoanApproved $x)))
+
+!(add-reduct &rb (loan-eligibility-rule))
+!(add-reduct &rb (bank-criteria-rule))
+!(add-reduct &rb (premium-loan-rule))
+!(add-reduct &rb (loan-approval-rule))
+!(add-reduct &rb (premium-loan-approval-rule))
 
 
 ;;  Forward Chainer
@@ -45,7 +73,9 @@
    (match &rb (-> $premise1 $premise2 $conclusion)
           (match &kb $premise1 (fc $conclusion $k))))
 
-
 ;;  Running Test
 
-!(fc (Evaluation has_credit_score_above_750 John) (fromNumber 2))
+!(fc (HasCreditScore Abebe above_750) (fromNumber 5))
+
+; Loan will not be approved because Hana does not fulfill the "HasLowDebt" requirement in the bank criteria rule
+!(fc (HasCreditScore Hana above_750) (fromNumber 5))

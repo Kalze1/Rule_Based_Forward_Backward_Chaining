@@ -25,14 +25,14 @@ A **Rule-Based System** applies logical rules to **known facts** to **infer new 
 
 ## 🔹 Forward Chaining (Data-Driven Inference)
 1. **Crime Detection** – Determines if someone is a criminal based on illegal weapon sales.
-2. **Credit Risk Assessment** – Determines loan approval based on credit score and income.
+2. **Credit Risk Assessment** – Determines loan approval based on credit score and other information.
 3. **Car Diagnosis** – Identifies car issues (fuel problem or battery issue).
 4. **Medical Diagnosis** – Diagnoses diseases based on symptoms.
 
 ## 🔹 Backward Chaining (Goal-Driven Inference)
 1. **Tallest Person Deduction** – Determines if John is the tallest person.
-2. **Ravi Likes Idli** – Traces back if Ravi likes Idli based on logical deduction.
-3. **Chemical Spill Identification** – Identifies a chemical spill by tracing backward from expected properties.
+2. **Food Preference** – Implemented rule-based backward chaining for Deborah's preference for Beyaynet.
+3. **Chemical Spill Identification** – Identifies a dangerous chemical spill by tracing backward from expected properties.
 
 ## 🚀 How to Install and Run
 
