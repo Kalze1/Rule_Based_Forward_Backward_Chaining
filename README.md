@@ -1,4 +1,4 @@
-# Rule-Based Forward and Backward Chaining Examples in MeTTa
+# Rule-Based Forward and Backward Chaining System in MeTTa
 
 This repository contains implementations of **Forward Chaining** and **Backward Chaining** using **Rule-Based Reasoning** in the MeTTa language.
 
